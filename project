@@ -1,0 +1,301 @@
+Guide Touristique Nador
+1. Présentation du projet
+1.1 Contexte
+Nador, perle de la Méditerranée marocaine, dispose d'atouts touristiques remarquables : la
+lagune de Marchica, les plages de Charrana et Boukana, le mont Gourougou, les souks
+traditionnels et une richesse culturelle rifaine unique. Cependant, l'absence d'une plateforme
+numérique centralisée freine la découverte de ces trésors par les visiteurs.
+La Région de l'Oriental vous confie la réalisation d'une application web de guide touristique
+dédiée à la ville de Nador et ses environs. Ce projet s'inscrit dans une stratégie régionale de
+valorisation du patrimoine touristique local et d'amélioration de l'accueil des visiteurs.
+1.2 Objectifs stratégiques
+● Promouvoir le tourisme dans la ville de Nador et renforcer son attractivité
+● Faciliter l'accès à l'information touristique pour les visiteurs nationaux et
+internationaux
+● Moderniser l'image de la destination Nador à travers un outil numérique
+contemporain
+● Permettre une gestion autonome et réactive du contenu touristique par les équipes.
+● Maintenir un lien continu avec les visiteurs via une newsletter événementielle
+1.3 Objectifs opérationnels
+● Centraliser l'ensemble des informations sur les lieux touristiques de Nador
+● Offrir une expérience utilisateur fluide et intuitive aux visiteurs
+● Fournir un espace d'administration complet pour la gestion du contenu
+● Garantir l'accessibilité de l'application sur tous les supports (desktop, tablette,
+mobile)
+● Informer régulièrement les visiteurs inscrits des événements à venir dans la région
+2. Périmètre du projet
+Espace visiteur
+● Consultation de la liste des lieux touristiques
+● Filtrage par catégorie
+● Recherche par nom de lieu
+● Affichage des fiches détaillées des lieux
+● Inscription à la newsletter
+Espace administrateur
+● Authentification sécurisée
+● Création de nouveaux lieux
+● Modification des lieux existants
+● Suppression de lieux
+● Activation et désactivation de lieux
+Système de newsletter
+● Formulaire d'inscription à la newsletter
+● Automatisation de l'ajout des abonnés via n8n
+● Envoi automatique d'emails événements générés par AI Agent
+● Gestion des événements via Google Sheets
+4. Spécifications fonctionnelles
+4.1 Espace visiteur
+4.1.1 Page d'accueil
+La page d'accueil présente une vue d'ensemble de l'application avec une introduction à la
+ville de Nador, un accès rapide aux catégories de lieux, un formulaire d'inscription à la
+newsletter.
+4.1.2 Liste des lieux
+La page de liste affiche l'ensemble des lieux touristiques actifs sous forme de cards. Chaque
+Card présente une image principale, le nom du lieu, sa catégorie et un extrait de la
+description. Un système de filtrage par catégorie permet d'affiner les résultats. Une barre de
+recherche permet de trouver un lieu par son nom.
+4.1.3 Fiche détaillée d'un lieu
+La fiche détaillée présente toutes les informations relatives à un lieu : galerie photos avec
+navigation, description complète, catégorie, horaires d'ouverture détaillés par jour, tarifs,
+adresse complète, moyens de transport et accessibilité.
+4.1.4 Catégories de lieux
+Les catégories disponibles sont les suivantes :
+● Plages
+● Sites naturels
+● Monuments et patrimoine
+● Musées et culture
+● Restaurants
+● Hôtels et hébergements
+● Cafés et salons de thé
+● Shopping et souks
+● Loisirs et divertissements
+4.1.5 Inscription à la newsletter
+Un formulaire d'inscription à la newsletter est accessible depuis la page d'accueil et le pied
+de page. Il permet aux visiteurs de recevoir des informations sur les événements de la
+région directement dans leur boîte mail.
+4.2 Espace administrateur
+4.2.1 Authentification
+L'administrateur accède à son espace via une page de connexion sécurisée.
+L'authentification s'effectue par identifiant et mot de passe. En cas d'échec, un message
+d'erreur explicite est affiché. Une fois connecté, l'administrateur reste authentifié jusqu'à sa
+déconnexion manuelle ou expiration du token.
+4.2.2 Tableau de bord
+Le tableau de bord présente une vue synthétique : nombre total de lieux, répartition par
+catégorie, nombre de lieux actifs et inactifs, nombre d'abonnés à la newsletter, et accès
+rapide aux actions principales.
+4.2.3 Gestion des lieux
+L'administrateur dispose d'une liste complète de tous les lieux avec possibilité de tri et de
+filtrage. Pour chaque lieu, il peut effectuer les actions suivantes : voir les détails, modifier,
+activer/désactiver, supprimer. Un formulaire complet permet la création et la modification des
+lieux.
+4.3 Système de newsletter
+4.3.1 Vue d'ensemble
+Le système de newsletter repose sur deux workflows n8n automatisés et une gestion des
+événements via Google Sheets. Un AI Agent est chargé de générer le contenu des emails
+d'information envoyés aux abonnés.
+4.3.2 Workflow 1 : Inscription à la newsletter
+Déclencheur : Soumission du formulaire d'inscription par un visiteur
+Processus :
+1. Le visiteur remplit le formulaire avec son adresse email et son prénom
+2. L'application front-end envoie une requête vers le webhook n8n
+3. Le workflow n8n vérifie que l'email n'est pas déjà inscrit
+4. Si nouveau, l'abonné est ajouté à la liste des newsletters dans Google Sheets
+5. Un email de bienvenue est envoyé au nouvel abonné
+6. Une réponse de confirmation est envoyée à l'application
+Données collectées :
+● Adresse email (obligatoire)
+● Prénom (obligatoire)
+● Date d'inscription (automatique)
+● Statut (actif par défaut)
+4.3.3 Workflow 2 : Envoi des emails événementiels
+Déclencheur : Tâche cron programmée (hebdomadaire, par exemple tous les lundis à
+9h00)
+Processus :
+1. Le cron déclenche le workflow n8n
+2. Le workflow récupère la liste des événements à venir depuis Google Sheets
+3. Le workflow filtre les événements pertinents (dates à venir, statut actif)
+4. L'agent IA génère le contenu de l'email d'information basé sur les événements
+5. Le workflow récupère la liste des abonnés actifs depuis Google Sheets
+6. L'email est envoyé à tous les abonnés actifs
+4.3.4 Gestion des événements via Google Sheets
+L'administrateur gère les événements directement dans un fichier Google Sheets. Cette
+approche permet une gestion simple sans développement supplémentaire côté application.
+5. User Stories
+5.1 Épic 1 : Découverte des lieux touristiques
+US-1.1 : Consulter la liste des lieux En tant que visiteur, je veux consulter la liste de tous
+les lieux touristiques de Nador.
+Critères d'acceptation :
+● La liste affiche uniquement les lieux actifs
+● Chaque lieu est présenté sous forme de Card avec image, nom, catégorie et extrait
+de description
+● La liste est paginée
+● Un indicateur de chargement est affiché pendant la récupération des données
+US-1.2 : Filtrer les lieux par catégorie En tant que visiteur, je veux filtrer les lieux par
+catégorie afin de trouver rapidement des lieux correspondant à mes centres d'intérêt.
+Critères d'acceptation :
+● Un système de filtres affiche toutes les catégories disponibles
+● Je peux sélectionner une ou plusieurs catégories
+● La liste se met à jour instantanément selon les filtres appliqués
+● Un bouton permet de réinitialiser tous les filtres
+● Le nombre de résultats est affiché
+US-1.3 : Rechercher un lieu par nom En tant que visiteur, je veux rechercher un lieu par
+son nom afin de trouver directement un lieu dont j'ai entendu parler.
+Critères d'acceptation :
+● Une barre de recherche est accessible en haut de la liste
+● La recherche s'effectue en temps réel à partir de 3 caractères
+● Un message indique si aucun résultat ne correspond à la recherche
+US-1.4 : Consulter la fiche détaillée d'un lieu En tant que visiteur, je veux consulter la
+fiche détaillée d'un lieu afin d'obtenir toutes les informations nécessaires pour planifier ma
+visite.
+Critères d'acceptation :
+● Un clic sur une Card lieu ouvre la fiche détaillée
+● La fiche affiche : galerie photos, nom, catégorie, description complète, horaires,
+tarifs, adresse, moyens de transport
+● Un bouton permet de revenir à la liste des lieux
+● Les informations manquantes sont gérées (affichage "Non renseigné" ou masquage
+de la section)
+US-1.5 : Visualiser les moyens de transport En tant que visiteur, je veux connaître les
+moyens de transport pour accéder à un lieu afin de planifier mon déplacement.
+Critères d'acceptation :
+● La section accessibilité liste tous les moyens de transport disponibles
+● Chaque moyen de transport est accompagné d'une icône explicite
+● Des indications pratiques sont fournies (lignes de bus, stations de taxi, parking
+disponible)
+5.2 Épic 2 : Authentification administrateur
+US-2.1 : Se connecter à l'espace administration En tant qu'administrateur, je veux me
+connecter à l'espace d'administration afin d'accéder aux fonctionnalités de gestion.
+Critères d'acceptation :
+● La page de connexion demande un identifiant et un mot de passe
+● Un bouton "Se connecter" soumet le formulaire
+● En cas de succès, je suis redirigé vers le tableau de bord
+● En cas d'échec, un message d'erreur explicite est affiché
+● Les champs sont validés avant soumission (non vides)
+US-2.2 : Se déconnecter de l'espace administration En tant qu'administrateur, je veux me
+déconnecter de l'espace d'administration afin de sécuriser mon accès.
+Critères d'acceptation :
+● Un bouton de déconnexion est visible dans l'interface d'administration
+● Un clic sur le bouton me déconnecte et me redirige vers la page de connexion
+● Ma session est invalidée côté client
+● Je ne peux plus accéder aux pages d'administration sans me reconnecter
+US-2.3 : Accéder aux pages protégées En tant qu'administrateur non connecté, je veux
+être redirigé vers la page de connexion si j'essaie d'accéder à une page protégée afin de
+garantir la sécurité de l'application.
+Critères d'acceptation :
+● Toute tentative d'accès à une page d'administration sans authentification redirige
+vers la connexion
+● Après connexion, je suis redirigé vers la page initialement demandée
+● Les routes d'administration sont protégées
+5.3 Épic 3 : Gestion des lieux par l'administrateur
+US-3.1 : Consulter le tableau de bord En tant qu'administrateur, je veux consulter un
+tableau de bord afin d'avoir une vue d'ensemble sur les lieux gérés et les abonnés à la
+newsletter.
+Critères d'acceptation :
+● Le tableau de bord affiche le nombre total de lieux
+● Le nombre de lieux par catégorie est présenté
+● Le nombre de lieux actifs et inactifs est distingué
+● Le nombre d'abonnés à la newsletter est affiché
+● Des raccourcis vers les actions principales sont disponibles (ajouter un lieu, voir la
+liste)
+US-3.2 : Consulter la liste des lieux en administration En tant qu'administrateur, je veux
+consulter la liste complète des lieux afin de les gérer.
+Critères d'acceptation :
+● La liste affiche tous les lieux (actifs et inactifs)
+● Un indicateur visuel distingue les lieux actifs des inactifs
+● Je peux trier la liste par nom, catégorie, date de création, statut
+● Je peux filtrer par catégorie et par statut
+● Des boutons d'action sont disponibles pour chaque lieu (modifier, activer/désactiver,
+supprimer)
+US-3.3 : Ajouter un nouveau lieu En tant qu'administrateur, je veux ajouter un nouveau
+lieu touristique afin d'enrichir le contenu de l'application.
+Critères d'acceptation :
+● Un formulaire permet de saisir toutes les informations du lieu
+● Les champs obligatoires sont : nom, catégorie, description, au moins une photo
+● Les champs optionnels sont : horaires, tarifs, adresse, moyens de transport
+● Je peux ajouter plusieurs photos
+● Une validation des champs est effectuée avant soumission
+● Un message de confirmation est affiché après création
+● Je suis redirigé vers la liste des lieux après création
+US-3.4 : Modifier un lieu existant En tant qu'administrateur, je veux modifier les
+informations d'un lieu existant afin de maintenir le contenu à jour.
+Critères d'acceptation :
+● Le formulaire est pré-rempli avec les données actuelles du lieu
+● Je peux modifier tous les champs
+● Je peux ajouter ou supprimer des photos
+● Les mêmes validations que la création s'appliquent
+● Un message de confirmation est affiché après modification
+● La date de dernière modification est mise à jour
+US-3.5 : Désactiver un lieu En tant qu'administrateur, je veux désactiver un lieu afin qu'il ne
+soit plus visible par les visiteurs sans le supprimer définitivement.
+Critères d'acceptation :
+● Un bouton permet de désactiver un lieu actif
+● Une confirmation est demandée avant désactivation
+● Le lieu désactivé n'apparaît plus dans l'espace visiteur
+● Le lieu reste visible dans l'espace administration avec un indicateur "Inactif"
+● Je peux réactiver un lieu désactivé à tout moment
+US-3.6 : Activer un lieu En tant qu'administrateur, je veux activer un lieu désactivé afin qu'il
+soit à nouveau visible par les visiteurs.
+Critères d'acceptation :
+● Un bouton permet d'activer un lieu inactif
+● Le lieu activé apparaît immédiatement dans l'espace visiteur
+● Le statut est mis à jour dans l'espace administration
+US-3.7 : Supprimer un lieu En tant qu'administrateur, je veux supprimer définitivement un
+lieu afin de retirer du contenu obsolète ou erroné.
+Critères d'acceptation :
+● Un bouton permet de supprimer un lieu
+● Une confirmation explicite est demandée
+● Le lieu est supprimé de la base de données
+● Un message de confirmation est affiché après suppression
+● Je suis redirigé vers la liste des lieux
+5.4 Épic 4 : Newsletter et notifications événementielles
+US-4.1 : S'inscrire à la newsletter En tant que visiteur, je veux m'inscrire à la newsletter
+afin de recevoir des informations sur les événements de la région de Nador.
+Critères d'acceptation :
+● Un formulaire d'inscription est visible sur la page d'accueil et dans le pied de page
+● Le formulaire demande l'adresse email (obligatoire) et le prénom (obligatoire)
+● Une validation du format email est effectuée avant soumission
+● Un message de confirmation est affiché après inscription réussie
+● Un message d'erreur est affiché si l'email est déjà inscrit
+● Un indicateur de chargement est affiché pendant le traitement
+US-4.2 : Recevoir un email de bienvenue En tant que visiteur nouvellement inscrit, je veux
+recevoir un email de bienvenue afin de confirmer mon inscription à la newsletter.
+Critères d'acceptation :
+● L'email est envoyé automatiquement après inscription
+● L'email contient un message de bienvenue personnalisé avec mon prénom
+● L'email inclut un lien vers l'application
+US-4.3 : Recevoir la newsletter événementielle En tant qu'abonné à la newsletter, je veux
+recevoir régulièrement des emails m'informant des événements à venir dans la région de
+Nador afin de planifier mes activités.
+Critères d'acceptation :
+● L'email est envoyé automatiquement selon une fréquence définie (hebdomadaire)
+● L'email présente les événements à venir avec leurs informations essentielles (titre,
+date, lieu, description)
+● Le contenu est rédigé de manière professionnelle
+● L'email inclut un lien vers l'application pour plus de détails
+● L'email n'est envoyé que s'il y a des événements à promouvoir
+US-4.4 : Ajouter un événement (administrateur) En tant qu'administrateur, je veux ajouter
+un événement dans Google Sheets afin qu'il soit inclus dans la prochaine newsletter.
+Critères d'acceptation :
+● Je peux accéder au fichier Google Sheets
+● Je peux ajouter une nouvelle ligne avec toutes les informations de l'événement
+● L'événement avec statut "Actif" sera inclus dans les prochains envois
+US-4.5 : Désactiver un événement (administrateur) En tant qu'administrateur, je veux
+désactiver un événement dans Google Sheets afin qu'il ne soit plus inclus dans les
+newsletters.
+Critères d'acceptation :
+● Je peux modifier le statut d'un événement de "Actif" à "Inactif"
+● L'événement inactif n'est plus inclus dans les envois de newsletter
+● L'événement reste dans le fichier pour historique
+6. Spécifications techniques
+6.1 Stack technique
+● Langage: Typescript
+● Framework frontEnd: ReactJs
+● Gestion des formulaires et validation: React Hook Form & Yup
+● React Toastify: notifications et feedback utilisateur
+● System de routage: React Router (+Routes protégées (Private Routes))
+● Gestion d’état: Redux Toolkit
+● Requetes HTTP: Axios, intercepteurs Axios
+● JWT stocké dans localStorage
+● Backend: Json-Server
+● Authentification: DummyJSON Auth API
+● Automatisation: n8n
+● base de données newsletter: Google Sheets
+● AI Agent: OpenAI
+● Envoi emails: gmail API ou SMTP

@@ -1,0 +1,285 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, #e8f4f8 0%, #f5ebe0 100%);
+}
+
+/* Header */
+.login-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 40px;
+  background: #1a2744;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-icon {
+  width: 28px;
+  height: 28px;
+  color: #00bcd4;
+}
+
+.logo-text {
+  color: white;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.header-right {
+  display: flex;
+  gap: 32px;
+}
+
+.header-link {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  opacity: 0.9;
+  transition: opacity 0.2s;
+}
+
+.header-link:hover {
+  opacity: 1;
+}
+
+/* Main Content */
+.login-main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.login-card {
+  background: white;
+  border-radius: 16px;
+  padding: 48px;
+  width: 100%;
+  max-width: 440px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+.lock-icon {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 20px;
+  color: #00bcd4;
+}
+
+.lock-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.login-card h1 {
+  font-size: 28px;
+  font-weight: 600;
+  color: #1a2744;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  color: #00bcd4;
+  font-size: 15px;
+  margin-bottom: 32px;
+}
+
+.error-alert {
+  background: #fef2f2;
+  color: #dc2626;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  text-align: left;
+}
+
+form {
+  text-align: left;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 8px;
+}
+
+.label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.label-row label {
+  margin-bottom: 0;
+}
+
+.forgot-link {
+  color: #00bcd4;
+  font-size: 13px;
+  text-decoration: none;
+}
+
+.forgot-link:hover {
+  text-decoration: underline;
+}
+
+.form-group input[type="text"],
+.form-group input[type="password"] {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 15px;
+  color: #374151;
+  background: #f9fafb;
+  transition: border-color 0.2s, background-color 0.2s;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #00bcd4;
+  background: white;
+}
+
+.form-group input::placeholder {
+  color: #9ca3af;
+}
+
+.form-group input:disabled {
+  background: #f3f4f6;
+  cursor: not-allowed;
+}
+
+.field-error {
+  display: block;
+  color: #dc2626;
+  font-size: 12px;
+  margin-top: 6px;
+}
+
+.remember-row {
+  margin-bottom: 24px;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #4b5563;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #00bcd4;
+  cursor: pointer;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 14px 24px;
+  background: linear-gradient(90deg, #00bcd4 0%, #4dd0e1 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.submit-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 188, 212, 0.4);
+}
+
+.submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.contact-text {
+  margin-top: 24px;
+  font-size: 14px;
+  color: #6b7280;
+  text-align: center;
+}
+
+.contact-text a {
+  color: #00bcd4;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.contact-text a:hover {
+  text-decoration: underline;
+}
+
+/* Footer */
+.login-footer {
+  padding: 20px;
+  text-align: center;
+  background: transparent;
+}
+
+.login-footer p {
+  font-size: 12px;
+  color: #6b7280;
+  margin-bottom: 4px;
+}
+
+.login-footer .footer-link {
+  color: #00bcd4;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .login-header {
+    padding: 12px 20px;
+  }
+
+  .logo-text {
+    font-size: 16px;
+  }
+
+  .header-right {
+    gap: 16px;
+  }
+
+  .header-link {
+    font-size: 12px;
+  }
+
+  .login-card {
+    padding: 32px 24px;
+  }
+
+  .login-card h1 {
+    font-size: 24px;
+  }
+}
